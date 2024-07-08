@@ -1,0 +1,193 @@
+notes
+
+// Promise.resolve()
+//   .then(func1)
+//   .then(func2)
+
+
+function resolveAfter2Seconds(x) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(x);
+//     }, 2000);
+//   });
+// }
+
+// async function f1() {
+//   const x = await resolveAfter2Seconds(10);
+//   console.log(x); // 10
+// }
+
+
+// By default, when the table name is not given, 
+// Sequelize automatically pluralizes the model name and uses that as the table name.
+
+// other ways of doing it
+// User.init(
+//   {
+//     // Model attributes are defined here
+//     firstName: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     lastName: {
+//       type: DataTypes.STRING,
+//       // allowNull defaults to true
+//     },
+//   },
+//   {
+//     // Other model options go here
+//     sequelize, // We need to pass the connection instance
+//     modelName: 'User', // We need to choose the model name
+//   },
+// );
+
+// // Define User model
+// class User extends Model {}
+// User.init({
+//   name: DataTypes.STRING,
+//   email: DataTypes.STRING,
+//   password: DataTypes.STRING
+// }, { sequelize, modelName: 'user' });
+
+// You can simply tell Sequelize the name of the table directly as well:
+
+// sequelize.define(
+//   'User',
+//   {
+//     // ... (attributes)
+//   },
+//   {
+//     tableName: 'Employees',
+//   },
+// );
+
+/*
+To drop the table related to a model:
+
+await User.drop();
+console.log('User table dropped!');
+
+To drop all tables:
+
+await sequelize.drop();
+console.log('All tables dropped!');
+*/
+
+.create == .build (builds instance) + .save (saves to DB)
+
+
+// try {
+//   await sequelize.authenticate();
+//   console.log('Connection has been established successfully.');
+// } catch (error) {
+//   console.error('Unable to connect to the database:', error);
+// }
+
+function DefineUser() {
+  const User = sequelize.define(
+    'User',
+    {
+      // Model attributes are defined here
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        // allowNull defaults to true
+      },
+    },
+    {
+      // Other model options go here
+    },
+  );
+
+  // `sequelize.define` also returns the model
+  console.log(User === sequelize.models.User); // true
+
+  return User
+}
+
+
+
+
+// // Respond to POST request on the root route (/), the application’s home page:
+// app.post('/', (req, res) => {
+//   res.send('Got a POST request')
+// })
+
+// //Respond to a PUT request to the /user route:
+// app.put('/user', (req, res) => {
+//   res.send('Got a PUT request at /user')
+// })
+
+// //Respond to a DELETE request to the /user route:
+// app.delete('/user', (req, res) => {
+//   res.send('Got a DELETE request at /user')
+// })
+
+//how to use parameters
+// app.get('/users/:userId/books/:bookId', (req, res) => {
+//   res.send(req.params)
+// })
+
+/*
+Route path: /flights/:from-:to
+Request URL: http://localhost:3000/flights/LAX-SFO
+req.params: { "from": "LAX", "to": "SFO" }
+
+Route path: /plantae/:genus.:species
+Request URL: http://localhost:3000/plantae/Prunus.persica
+req.params: { "genus": "Prunus", "species": "persica" }
+*/
+
+// will display what was posted
+// app.use(function (req, res) {
+//   res.setHeader('Content-Type', 'text/plain')
+//   res.write('you posted:\n')
+//   res.end(JSON.stringify(req.body, null, 2))
+// })
+
+
+// Define User model
+function DefineUser() {
+  const User = sequelize.define(
+    'User',
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+  );
+
+  // `sequelize.define` also returns the model
+  // console.log(User === sequelize.models.User); // true
+
+  return User;
+}
+
+// Index page sets up user data model
+app.get('/index', (req, res) => {
+
+  const user = DefineUser();
+  SyncModel(user);
+  Authenticate()
+  // .then(CloseConnection);
+
+  // CloseConnection();
+
+})
+
+app.get('/html', async (req, res) => {
+
+  // is is better to define boss at top level or within a route?
+  // const boss = DefineBoss();
+  // SyncModel(Boss);
+
+  Authenticate()
+
+  // Send the HTML file as the response
+  res.sendFile(path.join(__dirname, 'index.html'));
+});

@@ -1,0 +1,37 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express HTML Server</title>
+</head>
+<body>
+    <h1>Boss Tracker!</h1>
+    <p>This is a tracker for video game bosses to keep track of your deaths.</p>
+
+    <p>Please input the boss you are dying to.</p>
+
+
+    <form action="/createboss" method="post">
+      <ul>
+        <li>
+          <label for="name">Boss Name:</label>
+          <input type="text" id="boss_name" name="name" />
+        </li>
+        <li>
+          <label for="name">Game Name:</label>
+          <input type="text" id="game_name" name="game" />
+        </li>
+        <li>
+          <label for="name">Number of Deaths:</label>
+          <input type="number" id="number_of_deaths" name="deaths" />
+        </li>
+        <li class="button">
+          <button type="submit">Submit your record</button>
+        </li>
+      </ul>
+    </form>
+
+</body>
+</html>
