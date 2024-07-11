@@ -54,6 +54,31 @@ app.listen(port, () => {
 
 
 
+// Sandbox
+
+
+// Create user via hardcoded json
+app.get('/sandbox', async (req, res) => {
+// });
+
+// app.get('/sandbox', async (req, res) => {
+  const Class = sequelize.define('Class', { name: DataTypes.STRING });
+  const Student = sequelize.define('Student', { name: DataTypes.STRING });
+  Class.hasMany(Student, {
+    foreignKey: 'classId',
+  });
+  Student.belongsTo(Class);
+
+  SyncModel(Class);
+  SyncModel(Student);
+
+  // const test = await Class.create({'name':'Math'});
+  // res.json(test);
+
+  res.json({ message: 'Sandbox' });
+})
+
+
 // SIMPLE USER DB APP
 
 // Define User model
